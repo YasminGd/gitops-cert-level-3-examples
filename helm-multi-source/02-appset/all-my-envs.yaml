@@ -47,32 +47,31 @@ spec:
     spec:
       # The project the application belongs to.
       project: default
+      sources:
+        - repoURL: https://kostis-codefresh.github.io/multi-sources-example
+          chart: my-chart
+          targetRevision: '0.1.0'
+          helm:
+            valueFiles:
+            - $values/my-values/common-values.yaml
+            - $values/my-values/app-version/{{.version}}-values.yaml
+            - $values/my-values/env-type/{{.type}}-values.yaml
+            - $values/my-values/regions/{{.region}}-values.yaml
+            - $values/my-values/envs/{{.env}}-values.yaml
+        - repoURL: 'https://github.com/YasminGd/gitops-cert-level-3-examples.git'
+          targetRevision: HEAD
+          ref: values
 
-  sources:
-    - repoURL: https://kostis-codefresh.github.io/multi-sources-example
-      chart: my-chart
-      targetRevision: '0.1.0'
-      helm:
-        valueFiles:
-        - $values/my-values/common-values.yaml
-        - $values/my-values/app-version/{{.version}}-values.yaml
-        - $values/my-values/env-type/{{.type}}-values.yaml
-        - $values/my-values/regions/{{.region}}-values.yaml
-        - $values/my-values/envs/{{.env}}-values.yaml
-    - repoURL: 'https://github.com/YasminGd/gitops-cert-level-3-examples.git'
-      targetRevision: HEAD
-      ref: values
+          # Destination cluster and namespace to deploy the application
+          destination:
+            server: https://kubernetes.default.svc
+            namespace: '{{.env}}'
 
-      # Destination cluster and namespace to deploy the application
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{.env}}'
-
-      # Sync policy
-      syncPolicy:
-        syncOptions:
-          - CreateNamespace=true  
-        automated: 
-          prune: true 
-          selfHeal: true 
+          # Sync policy
+          syncPolicy:
+            syncOptions:
+              - CreateNamespace=true  
+            automated: 
+              prune: true 
+              selfHeal: true 
       
