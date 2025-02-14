@@ -11,7 +11,10 @@ spec:
       github:
         owner: YasminGd
         repo: gitops-cert-level-3-examples
+        labels:
+        - preview
       requeueAfterSeconds: 180
+
   template:
     metadata:
       name: 'myapp-{{.branch}}'
