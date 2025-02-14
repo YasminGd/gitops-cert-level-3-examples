@@ -62,16 +62,16 @@ spec:
           targetRevision: HEAD
           ref: values
 
-          # Destination cluster and namespace to deploy the application
-          destination:
-            server: https://kubernetes.default.svc
-            namespace: '{{.env}}'
+      # Destination cluster and namespace to deploy the application
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.env}}'
 
-          # Sync policy
-          syncPolicy:
-            syncOptions:
-              - CreateNamespace=true  
-            automated: 
-              prune: true 
-              selfHeal: true 
+      # Sync policy
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true  
+        automated: 
+          prune: true 
+          selfHeal: true 
       
